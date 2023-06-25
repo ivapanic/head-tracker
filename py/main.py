@@ -11,10 +11,10 @@ if __name__ == "__main__":
                                      calculates head orientation and sends information to the wanted plugin (IEM Suite, Sparta).')
     parser.add_argument('-pin', '--plugin', type=str, default='sparta', help="Name of the plugin you want to send data to.\
                         If it's an IEM Suite plugin, write the name of the plugin. Eg. 'SceneRotator'.")
-    parser.add_argument('-ip', '--ip_address', type=str, default='127.0.0.1', help="IP address of the client.")
-    parser.add_argument('-p', '--port', type=int, required=True, help="Client port.")
+    parser.add_argument('-ip', '--ip_address', type=str, default='127.0.0.1', help="IP address of the server.")
+    parser.add_argument('-p', '--port', type=int, required=True, help="UDP port to send OSC data to, user-defined in the plugin.")
     parser.add_argument('-d', '--dof', type=int, required=False, default=9, choices=[6, 9], help="Number of sensor's degrees of freedom. \
-                      6DOF: 3-axis acceleroscope and gyroscope.\n9DOF: 3-axis acceleroscope, gyroscope and magnetometer.")
+                      6DOF: 3-axis accelerometer and gyroscope.\n9DOF: 3-axis accelerometer, gyroscope and magnetometer.")
 
     args = parser.parse_args()
     dof = args.dof
