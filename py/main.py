@@ -4,7 +4,7 @@ from madgwick import madgwick
 from parsers import parse_imu_data
 from ble_central import ble_central
 from osc_client import osc_client
- 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='Head tracking bridge', 
                                      description='This program receives IMU data via BLE connection, parses it,\
@@ -16,19 +16,19 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--dof', type=int, required=False, default=9, choices=[6, 9], help="Number of sensor's degrees of freedom. \
                       6DOF: 3-axis accelerometer and gyroscope.\n9DOF: 3-axis accelerometer, gyroscope and magnetometer.")
 
-    args = parser.parse_args()
+    args = parser.parse_args(['-p', '8000'])
     dof = args.dof
 
     ble_central = ble_central()
     osc_client = osc_client(args.ip_address, args.port, args.plugin)
 
     ble_central.scan_peripherals()
-    
-    while not ble_central.connect_to_peripheral():
-        print('.', end='')
-    else:
+    connected = ble_central.connect_to_peripheral()
+	
+    if connected:
         filter = madgwick()
         while True:
             raw_data = parse_imu_data(ble_central.read(), dof)
             filter.filter(raw_data[0], raw_data[1], raw_data[2])
             osc_client.send(filter.euler_angles())
+            

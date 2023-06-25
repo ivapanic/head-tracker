@@ -69,10 +69,7 @@ void loop()
         add_padding(imu_data);
 
         imu_characteristic.writeValue(imu_data);
-        Serial.println(imu_data);
-        
-        delay(10);
-      }
+        Serial.println(imu_data)
     }
     Serial.print(F("Disconnected from central: "));
     Serial.println(central.address());
@@ -139,14 +136,6 @@ void calibrate() {
       mag_sum[i] += mag[i];
     }
   }
-
-  /* for(int i = 0; i < 3; ++i)
-  {
-    acc_start[i] = acc[i];
-    gyro_start[i] = gyro[i];
-    mag_start[i] = mag[i];
-
-  } */
 
   for (int i = 0; i < 3; ++i) {
     acc_off[i] = acc_sum[i] / num_calibration_samples;
