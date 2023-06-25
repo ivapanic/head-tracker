@@ -16,7 +16,7 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--dof', type=int, required=False, default=9, choices=[6, 9], help="Number of sensor's degrees of freedom. \
                       6DOF: 3-axis acceleroscope and gyroscope.\n9DOF: 3-axis acceleroscope, gyroscope and magnetometer.")
 
-    args = parser.parse_args(['-ip', '192.168.1.219', '-p', '8000', '-pin', 'SceneRotator','-d',  '6'])
+    args = parser.parse_args()
     dof = args.dof
 
     ble_central = ble_central()
